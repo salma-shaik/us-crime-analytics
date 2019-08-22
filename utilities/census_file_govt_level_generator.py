@@ -126,4 +126,4 @@ def merge_cen_final_main():
 """
     Consolidate all the final census files with the updated ORIs together
 """
-consolidate_all_census_files()
+# consolidate_all_census_files()
