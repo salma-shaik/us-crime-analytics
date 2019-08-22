@@ -1,5 +1,5 @@
 import pandas as pd
-
+from utilities import df_cleaner
 
 """
  1. Merge Crime Nat 1960-15 file with crosswalk improved 2006 file by ORI. 
@@ -25,16 +25,8 @@ def merge_crime_crswlk(crswlk_fl, crime_fl):
     crime_unique_crswlk_major_merged.drop(['ORI'], axis=1, inplace=True)
 
     # Rearrange columns such that ORI, CGOVTYPE, fips_place, fips_county, fips_state are at the beginning
-    cols = list(crime_unique_crswlk_major_merged.columns.values)
-    cols.pop(cols.index('ori_code'))
-    cols.pop(cols.index('agency_name'))
-    cols.pop(cols.index('CGOVTYPE'))
-    cols.pop(cols.index('fips_place'))
-    cols.pop(cols.index('fips_county'))
-    cols.pop(cols.index('fips_state'))
-
-    merged_crime_file_cgovtype_df_arranged = crime_unique_crswlk_major_merged[
-        ['ori_code', 'agency_name', 'CGOVTYPE', 'fips_place', 'fips_county', 'fips_state'] + cols]
+    merged_crime_file_cgovtype_df_arranged = df_cleaner.rearrange_cols(crime_unique_crswlk_major_merged,
+                                             ['ori_code', 'agency_name', 'CGOVTYPE', 'fips_place', 'fips_county', 'fips_state'])
 
     # Rename 'CGOVTYPE', 'fips_place', 'fips_county', 'fips_state' columns to match the names in census files.
     # Also year to crime_year to differentiate from census year. ###### Address later when merging crime and census together. ######
