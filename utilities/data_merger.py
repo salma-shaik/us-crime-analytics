@@ -176,12 +176,6 @@ def merge_cen_cr_bea_spatial_officers_arrests_incarceration():
 # merge_cen_cr_bea_spatial_officers_arrests_incarceration()
 
 
-"""
-    Merge or concatenate these new columns with the final_main_race_rates df based on state and cnty fips so that for a given cnty and state combination, 
-    same values are copied to all the jurisdictions.
-"""
-
-
 def merge_final_main_race_rates_incarceration_pct():
     # Read the cnty crime totals file
     cnty_agency_totals_98_08 = pd.read_csv(
@@ -191,6 +185,8 @@ def merge_final_main_race_rates_incarceration_pct():
     final_main_race_counts = pd.read_csv(
         '/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data/merge_files/final_main_race_counts.csv')
 
+    # So here merging with agency_1st_rep_yr_fel_misd_pcts_98_08.csv file to have only those ORIs which have
+    # reported data for all the years between 98-08
     final_main_race_counts_crime_totals = final_main_race_counts.merge(cnty_agency_totals_98_08, on=['ORI'])
     final_main_race_counts_crime_totals.replace(np.inf, 0, inplace=True)
 
@@ -203,3 +199,8 @@ def merge_final_main_race_rates_incarceration_pct():
 
 
 merge_final_main_race_rates_incarceration_pct()
+
+
+def merge_final_main_race_rates_incarceration_pct_new_econ():
+    # 1st del old econ data cols then merge with new econ data
+    pass
