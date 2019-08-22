@@ -1,5 +1,5 @@
 import pandas as pd
-from utilities import files_metadata as fm
+from utilities import files_metadata as fm, df_cleaner as df_c
 
 pd.options.mode.chained_assignment = None  # default='warn'
 """
@@ -14,15 +14,6 @@ Notes: Specify the correct index for county and city files respectively.
 
 census_type = ''
 census_year = ''
-
-
-"""
-Returns the census type of the current file being read
-"""
-
-
-
-
 
 # """
 # Reads the original csv and returns it in a data-frame
@@ -61,31 +52,6 @@ def split_geo_id2(geo_id2, split_index, code_type=None):
 
 
 """
-Helper function to prefix county fips value with zeroes as required so as to make all of them 3 chars long 
-"""
-
-
-def update_code_len(fips_code, fp_type):
-    req_code_len = 0  # placeholder to assign required code length based on whether it is a city, county or state fips code.
-                       # For now cnty and placefips ar of reqd len coz considered as strings. but can have below code for future use
-    fp_code_len = fips_code.__len__()
-
-    if fp_type == 'city':
-        req_code_len = 5
-    elif fp_type == 'county':
-        req_code_len = 3
-    elif fp_type == 'state':
-        req_code_len = 2
-
-    if fp_code_len < req_code_len:
-        while fips_code.__len__() < req_code_len:
-            fips_code = '0'*(req_code_len-fp_code_len) + fips_code
-            return fips_code
-    else:
-        return fips_code
-
-
-"""
 Helper function to create a new column with constant value
 """
 
@@ -117,7 +83,7 @@ Create place_fips, CNTY and STATEFP columns
 
 
 def create_fips_cols(ini_df, geo_id2_ser):
-    split_index = None # placeholder to set split_index based on the census type -> -3 for county and -5 for city
+    split_index = None  # placeholder to set split_index based on the census type -> -3 for county and -5 for city
 
     """
     3) Create a new place_fips column by splitting the place_fips code value from GEO.id2 column
@@ -128,7 +94,7 @@ def create_fips_cols(ini_df, geo_id2_ser):
 
         # split county code from geo id2
         ini_df['CNTY'] = geo_id2_ser.apply(split_geo_id2, args=(split_index, 'CNTY'))
-        ini_df['place_fips'] = ['99'+x for x in ini_df['CNTY']]
+        ini_df['place_fips'] = ['99' + x for x in ini_df['CNTY']]
 
         # create a Govt_level column with value 1 for county
         ini_df = create_new_col(ini_df, new_col_list={'Govt_level': 1})
@@ -137,20 +103,21 @@ def create_fips_cols(ini_df, geo_id2_ser):
         split_index = -5
 
         # get fips place code from geo id2
-        ini_df['place_fips'] = geo_id2_ser.apply(split_geo_id2, args=(split_index, 'place_fips')) ###### TO-DO: May be we don't need 'place-fips' here. CHECk #########
+        ini_df['place_fips'] = geo_id2_ser.apply(split_geo_id2, args=(
+        split_index, 'place_fips'))  ###### TO-DO: May be we don't need 'place-fips' here. CHECk #########
 
         # create a blank CNTY column and Govt_level with value 3 for city census
-        ini_df = create_new_col(ini_df,  new_col_list={'CNTY':'', 'Govt_level': 3})
+        ini_df = create_new_col(ini_df, new_col_list={'CNTY': '', 'Govt_level': 3})
 
     """
     4) Create a new STATEFP column by splitting the STATEFP code value from GEO.id2 column
     """
     # First get the state fips code from geo id2
-    ini_df['STATEFP'] = geo_id2_ser.apply(split_geo_id2, args=(split_index, ))
+    ini_df['STATEFP'] = geo_id2_ser.apply(split_geo_id2, args=(split_index,))
 
     # Convert all state fips codes to be 2 chars long by prefixing with 0s as required
     fips_code_type = 'state'
-    ini_df['STATEFP'] = ini_df['STATEFP'].apply(update_code_len, args=(fips_code_type, ))
+    ini_df['STATEFP'] = ini_df['STATEFP'].apply(df_c.update_fips_code_len, args=(fips_code_type,))
 
     # Create a YEAR column with value = census_year obtained at the beginning while reading the file
     ini_df = create_new_col(ini_df, new_col_list={'YEAR': census_year})
@@ -163,7 +130,8 @@ def create_fips_cols(ini_df, geo_id2_ser):
     """
     df_cols = ini_df.columns.tolist()  # to get a list of columns
 
-    ini_df = arrange_cols(ini_df, df_cols, {0:'Govt_level', 1:'place_fips', 2:'placename', 3:'CNTY', 4:'STATEFP', 5:'YEAR'})
+    ini_df = arrange_cols(ini_df, df_cols,
+                          {0: 'Govt_level', 1: 'place_fips', 2: 'placename', 3: 'CNTY', 4: 'STATEFP', 5: 'YEAR'})
 
     return ini_df
 
@@ -171,6 +139,7 @@ def create_fips_cols(ini_df, geo_id2_ser):
 """
 To write final df to a csv
 """
+
 
 #
 # def create_updated_csv(fnl_df, file_path, enc='utf-8', ind_val=False, file_type=N):
@@ -202,7 +171,9 @@ def get_updated_census_cols(file_path):
 
 if __name__ == '__main__':
     # First obtain the paths to read input file and to write output file
-    fp_list = fm.find_files_path('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data', 'updated_col_headers', 'new_fips_cols')
+    fp_list = fm.find_files_path(
+        '/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data',
+        'updated_col_headers', 'new_fips_cols')
 
     for fp_elem in fp_list:
         inp_file_path, out_file_path = fp_elem
