@@ -41,7 +41,7 @@ crime_98_08_1st_rep_yr.sort_values(['ORI', 'YEAR'], inplace=True)
 
 # drop duplicates so that the 1st record, in this case the record for the first reported year is retained.
 crime_98_08_1st_rep_yr.drop_duplicates(subset=['ORI'], inplace=True)
-crime_98_08_1st_rep_yr.to_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data/merge_files/final_main_race_counts_crime_totals_98_08_1st_rep_yr.csv', index=False)
+crime_98_08_1st_rep_yr.to_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data/merge_files/crime_98_08_tot_non_zero.csv', index=False)
 
 
 # Getting the ORIs which don't have data for any of the years between 1998-2008
@@ -50,7 +50,7 @@ zero_oris = set(crime_98_08_tot_zero['ORI'])
 
 # Write the zero ORIs to output file
 ori_list_df = pd.DataFrame(zero_oris, columns=['ORI'])
-ori_list_df.to_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data/merge_files/final_main_race_counts_crime_zero_totals_98_08.csv', index=False)
+ori_list_df.to_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data/merge_files/oris_zero_totals_98_08.csv', index=False)
 
 
 """
@@ -104,8 +104,8 @@ crime_req_yrs_cnty_totals['tot_major_offenses_cnty'] = crime_req_yrs_cnty_totals
 
 crime_req_yrs_cnty_totals.to_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data/merge_files/final_main_race_counts_crime_totals_98_08_1st_rep_yr_cnty_totals_groupby.csv', index=False)
 
-# merge the county totals group by df with the crime_98_08_1st_rep_yr on state and cnty fips so that county level totals are assigned to each agency based
-# on state and county fips
+# merge the county totals group by df with the crime_98_08_1st_rep_yr on state and cnty fips so that county level totals
+# are assigned to each agency based on state and county fips
 crime_non_zero_totals = pd.merge(crime_98_08_1st_rep_yr, crime_req_yrs_cnty_totals, on=['STATEFP', 'CNTY'])
 crime_non_zero_totals['perc_felonies'] = (crime_non_zero_totals['tot_felonies_agency']/crime_non_zero_totals['tot_felonies_cnty'])*100
 crime_non_zero_totals['perc_misdemeanors'] = (crime_non_zero_totals['tot_misdemeanors_agency']/crime_non_zero_totals['tot_misdemeanors_cnty'])*100
