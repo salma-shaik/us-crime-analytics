@@ -190,8 +190,8 @@ def merge_final_main_race_rates_incarceration_pct():
     final_main_race_counts_crime_totals = final_main_race_counts.merge(cnty_agency_totals_98_08, on=['ORI'])
     final_main_race_counts_crime_totals.replace(np.inf, 0, inplace=True)
 
-    final_main_race_counts_crime_totals['prison_occupancy_count'] = (final_main_race_counts_crime_totals['perc_felonies'] * final_main_race_counts_crime_totals['total_prison_pop']) / 100
-    final_main_race_counts_crime_totals['jail_occupancy_count'] = (final_main_race_counts_crime_totals['perc_misdemeanors'] * final_main_race_counts_crime_totals['jail_interp']) / 100
+    # final_main_race_counts_crime_totals['prison_occupancy_count'] = (final_main_race_counts_crime_totals['perc_felonies'] * final_main_race_counts_crime_totals['total_prison_pop']) / 100
+    # final_main_race_counts_crime_totals['jail_occupancy_count'] = (final_main_race_counts_crime_totals['perc_misdemeanors'] * final_main_race_counts_crime_totals['jail_interp']) / 100
 
     final_main_race_counts_crime_totals.to_csv(
         '/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data/merge_files/final_main_race_counts_incarc_counts.csv',
@@ -201,6 +201,6 @@ def merge_final_main_race_rates_incarceration_pct():
 merge_final_main_race_rates_incarceration_pct()
 
 
-def merge_final_main_race_rates_incarceration_pct_new_econ():
+def merge_final_main_race_counts_incarceration_pct_new_econ():
     # 1st del old econ data cols then merge with new econ data
     pass
