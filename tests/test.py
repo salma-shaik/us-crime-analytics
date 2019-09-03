@@ -44,12 +44,12 @@ import pandas as pd
 #econ_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/economic/new_eco_cen/2000/eco_2000.csv')
 
 # 10
-econ_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/economic/new_eco_cen/2010/eco_2010.csv')
-
-print('Duplicate records: ')
-econ_df_dup = econ_df[econ_df.duplicated(subset=['STATEFP', 'place_fips'])]
-#econ_df_dup = pd.concat(g for _, g in econ_df.groupby(['STATEFP', 'place_fips']) if len(g) > 1)
-print(econ_df_dup)
+# econ_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/economic/new_eco_cen/2010/eco_2010.csv')
+#
+# print('Duplicate records: ')
+# econ_df_dup = econ_df[econ_df.duplicated(subset=['STATEFP', 'place_fips'])]
+# #econ_df_dup = pd.concat(g for _, g in econ_df.groupby(['STATEFP', 'place_fips']) if len(g) > 1)
+# print(econ_df_dup)
 
 
 # df1 = pd.DataFrame({'a': [1, 2, 3]})
@@ -60,3 +60,8 @@ print(econ_df_dup)
 # #print(df1)
 #
 # print(df1_new)
+
+year = 2015
+yr_str = '4/1/' + str(year)
+yr_str_dt = pd.to_datetime(yr_str)
+print(yr_str_dt.year)
