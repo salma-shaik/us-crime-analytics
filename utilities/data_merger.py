@@ -198,9 +198,22 @@ def merge_final_main_race_rates_incarceration_pct():
         index=False)
 
 
-merge_final_main_race_rates_incarceration_pct()
+# merge_final_main_race_rates_incarceration_pct()
 
 
 def merge_final_main_race_counts_incarceration_pct_new_econ():
     # 1st del old econ data cols then merge with new econ data
-    pass
+    econ_data = pd.read_csv('/Users/salma/Research/us-crime-analytics/data/Economic_Interpolated.csv')
+
+    econ_data_req = econ_data.loc[:, ['ORI', 'YEAR', 'pci_total_pop', 'pci_white', 'pci_black', 'emp_total_male',
+                                      'emp_total_female', 'emp_total', 'emp_total_male_white', 'emp_total_female_white',
+                                      'emp_total_male_black', 'emp_total_female_black', 'pci_hisp', 'emp_total_male_hisp',
+                                      'emp_total_female_hisp']]
+
+    final_main_rates = pd.read_csv('/Users/salma/Research/us-crime-analytics/data/final_main_rates.csv')
+
+    final_main = final_main_rates.merge(econ_data_req, on=['ORI', 'YEAR'], how='left')
+    final_main.to_csv('/Users/salma/Research/us-crime-analytics/data/final_main.csv', index=False)
+
+
+merge_final_main_race_counts_incarceration_pct_new_econ()
