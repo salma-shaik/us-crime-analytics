@@ -3,7 +3,6 @@ import numpy as np
 
 
 def replicate_fixed_cols(df, cols_list, op_fl_path, dt_type):
-
     # get only the reqd cols list =
     df_req = df.loc[:, cols_list]
 
@@ -26,6 +25,7 @@ def replicate_fixed_cols(df, cols_list, op_fl_path, dt_type):
 
     # create new 'reps' column(= length of df) with year_codes values that would be assigned based on number of reps
     # required for each row for a given year (based on the conditions and output setup above)
+
     df_req['reps'] = pd.Series(year_codes)
 
 
@@ -36,6 +36,7 @@ def replicate_fixed_cols(df, cols_list, op_fl_path, dt_type):
 
     # drop the reps column
     df_req.drop('reps', axis=1, inplace=True)
+
     df_req.to_csv(f'{op_fl_path}/{dt_type}_Fixed_Cols_Replicated.csv', index=False)
 
 """

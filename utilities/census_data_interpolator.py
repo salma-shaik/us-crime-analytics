@@ -2,6 +2,7 @@ import pandas as pd
 
 from utilities import fixed_columns_replicator as fcr
 from utilities import year_replicator as yr
+
 from utilities import year_generator as yg
 from utilities import variables_interpolator as vi
 
@@ -14,14 +15,15 @@ fcr.replicate_fixed_cols(df = pd.read_csv('/Users/salma/Studies/Research/Crimina
                          op_fl_path='/Users/salma/Studies/Research/Criminal_Justice/us_crime_analytics/data/census',
                          dt_type='Census')
 
-
 '''
+
 # replicate year set from 90-15 unique ORI number of times
-yr.genereate_years_90_15(df = pd.read_csv(
+yr.generate_years_90_15(df = pd.read_csv(
                                 '/Users/salma/Studies/Research/Criminal_Justice/us_crime_analytics/data/census/Census_Fixed_Cols_Replicated.csv'),
                          repl_times = 14542,
                          dt_type = 'Census',
                          op_fl_path='/Users/salma/Studies/Research/Criminal_Justice/us_crime_analytics/data/census')
+
 '''
 
 # generate years between existing decennial years
@@ -45,3 +47,4 @@ do the below
 '''
 # replace_negative_values()
 # write_final_intpltd_file()
+
