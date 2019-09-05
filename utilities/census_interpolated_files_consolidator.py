@@ -59,14 +59,14 @@ def interpolate_census_vars(fl_path):
     So extrapolating from 2010 - 2015 yields negative results. In order to overcome this, after interpolation, replacing all negative values with 0
 """
 def replace_negative_values():
-    int_df = pd.read_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US_Crime_Analytics/data/interpolated_files/Census_Pop_Vars_Interpolated.csv')
+    int_df = pd.read_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US_Crime_Analytics/data/interpolated_files/Census_Vars_Interpolated.csv')
     # Accessing the private _get_numeric_data() of the dataframe. Private method, so changes reflected in the original df
     int_df_num = int_df._get_numeric_data()
     int_df_num[int_df_num < 0] = 0
     int_df.to_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data/census/Census_Pop_Vars_Interpolated_Negative_Extrapolated_Pop_Zeroed.csv', index=False)
 
 
-#replace_negative_values()
+# replace_negative_values()
 
 
 def write_final_intpltd_file():
@@ -79,7 +79,9 @@ def write_final_intpltd_file():
 
     ############ To-Do: See if you can merge based on ORI instead ################
     # concatenate fixed columns, year and population variables together vertically
-    final_int_df = pd.concat([fixed_rows_yr, interpolated_df], axis=1)
+    # vars interpoalted file will have year column as a result of resampling. so can merge on ORI and year now
+    #final_int_df = pd.concat([fixed_rows_yr, interpolated_df], axis=1)
+    final_int_df = pd.merge(fixed_rows_yr, interpolated_df, on=['ORI', 'YEAR'])
 
     # Little tricky coz interpolated df doesn't have missing years filled in similar to the years replicated df
     # final_int_df = fixed_rows_yr.merge(interpolated_df, on=['ORI', 'YEAR'])
@@ -97,4 +99,4 @@ def write_final_intpltd_file():
     final_int_df.to_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US Crime Analytics/data/census/Census_Interpolated.csv', index=False)
 
 
-write_final_intpltd_file()
+# write_final_intpltd_file()
