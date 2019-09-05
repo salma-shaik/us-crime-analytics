@@ -5,7 +5,7 @@ We need to create an YEAR column with all the years between 2015 to 2010, 2010 t
 '''
 
 
-def genereate_years_90_15(df, repl_times, dt_type, op_fl_path):
+def replicate_years_90_15(df, repl_times, dt_type, op_fl_path):
     # Create a dataframe with 2015-1990 years and replicate it as many times required to fill up the existing dataframe length
     years = pd.DataFrame(
         {'YEAR': [2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001,
