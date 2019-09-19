@@ -50,13 +50,16 @@ def update_final_main_vars(main_df):
     main_df['emp_total_black'] = main_df[['emp_total_male_black', 'emp_total_female_black']].sum(axis=1)
     main_df['emp_total_hisp'] = main_df[['emp_total_male_hisp', 'emp_total_female_hisp']].sum(axis=1)
 
+    main_df['drug_total_arrests'] = main_df[['sale_drug_total_tot_arrests', 'poss_drug_total_tot_arrests']].sum(axis=1)
+    main_df['drug_total_arrests_rate'] = main_df[['sale_drug_total_tot_arrests_rate', 'poss_drug_total_tot_arrests_rate']].sum(axis=1)
+
     main_df.replace(np.inf, 0, inplace=True)
 
     main_df.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/analysis/final_main_ncrp_incarc_rep_code_enhanced.csv',
                          index=False)
 
 
-create_icspr_flags(pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/analysis/final_main.csv'))
+#create_icspr_flags(pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/analysis/final_main.csv'))
 
 update_final_main_vars(pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/analysis/final_main_ncrp_incarc_rep_code.csv'))
 
