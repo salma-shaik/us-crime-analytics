@@ -47,7 +47,7 @@ def merge_census_crime():
     census_crime_merged['total_crime'] = census_crime_merged[
         ['murder', 'manslaughter', 'rape', 'robbery', 'gun_robbery', 'knife_robbery', 'aggravated_assault',
          'gun_assault', 'knife_assault', 'simple_assault', 'burglary', 'larceny', 'auto_theft']].sum(axis=1)
-    census_crime_merged['violent_crime'] = census_crime_merged[['murder', 'manslaughter', 'rape', 'robbery', 'aggravated_assault']].sum(
+    census_crime_merged['violent_crime'] = census_crime_merged[['murder', 'rape', 'robbery', 'aggravated_assault']].sum(
         axis=1)
     census_crime_merged['property_crime'] = census_crime_merged[['burglary', 'larceny', 'auto_theft']].sum(axis=1)
     census_crime_merged['crimes_against_officers'] = census_crime_merged[['officers_assaulted', 'officers_killed_by_felony']].sum(axis=1)
