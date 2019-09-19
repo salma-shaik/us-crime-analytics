@@ -61,7 +61,13 @@ import pandas as pd
 #
 # print(df1_new)
 
-year = 2015
-yr_str = '4/1/' + str(year)
-yr_str_dt = pd.to_datetime(yr_str)
-print(yr_str_dt.year)
+# year = 2015
+# yr_str = '4/1/' + str(year)
+# yr_str_dt = pd.to_datetime(yr_str)
+# print(yr_str_dt.year)
+
+df1 = pd.DataFrame({'a': [1, 1, 1, 2, 2]})
+df2 = pd.DataFrame({'a': [1, 2], 'b':['a_replicated', 'b_replicated']})
+
+df = df1.merge(df2, on='a')
+print(df)
