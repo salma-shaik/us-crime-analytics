@@ -7,7 +7,7 @@ pd.set_option('display.width', 5000)
 
 
 def get_ini_core_counts(initial_core_df):
-    initial_core_counts = initial_core_df.loc[:, ['ORI', 'AGENCY', 'YEAR', 'POP100', 'White_count', 'Black_count',
+    initial_core_counts = initial_core_df.loc[:, ['ORI', 'AGENCY', 'YEAR', 'Govt_level', 'POP100', 'White_count', 'Black_count',
                                                'Hispanic_count','Pct_WYM', 'Pct_WYF','total_count_county', 'population',
                                                'murder', 'rape', 'robbery', 'aggravated_assault',
                                                'simple_assault', 'burglary', 'larceny', 'auto_theft',
@@ -81,7 +81,7 @@ def get_ini_core_counts_neg(initial_core_counts):
 
 
 def get_ini_core_rates(initial_core_df):
-    initial_core_rates = initial_core_df.loc[:, ['ORI', 'AGENCY', 'YEAR', 'POP100', 'White_count', 'Black_count',
+    initial_core_rates = initial_core_df.loc[:, ['ORI', 'AGENCY', 'YEAR', 'Govt_level', 'POP100', 'White_count', 'Black_count',
                                                  'Hispanic_count','Pct_WYM', 'Pct_WYF','total_count_county', 'population',
                                                  'murder_rate', 'rape_rate', 'robbery_rate', 'aggravated_assault_rate',
                                                  'simple_assault_rate','burglary_rate','larceny_rate','auto_theft_rate',
