@@ -27,7 +27,7 @@ def get_ini_core_counts(initial_core_df):
                                                'total_officers','prison_occupancy_count','jail_occupancy_count', 'pci_white',
                                                'pci_black','emp_total','emp_total_white', 'emp_total_black']]
 
-    initial_core_counts.to_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_counts.csv', index=False)
+    initial_core_counts.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_counts.csv', index=False)
 
     # get the records with atleast 1 negative value in any one column
     initial_core_counts_neg = initial_core_counts.loc[(initial_core_counts[['murder', 'rape', 'robbery', 'aggravated_assault',
@@ -44,8 +44,8 @@ def get_ini_core_counts(initial_core_df):
                                                                             'poss_drug_total_tot_arrests', 'poss_drug_total_tot_black', 'poss_drug_total_tot_white',
                                                                             'disorder_arrests_tot_index', 'disorder_arrests_black_index', 'disorder_arrests_white_index',
                                                                             'total_officers', 'prison_occupancy_count', 'jail_occupancy_count']] < 0).any(axis=1)]
-    initial_core_counts_neg.to_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/'
-                                  'initial_core_counts_neg.csv', index=False)
+
+    initial_core_counts_neg.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_counts_neg.csv', index=False)
 
     # get the df without the negative value records
     initial_core_counts_pos = initial_core_counts.merge(initial_core_counts_neg, how='left', indicator=True)
@@ -53,8 +53,7 @@ def get_ini_core_counts(initial_core_df):
 
     initial_core_counts_pos.drop(['_merge'], inplace=True, axis=1)
 
-    initial_core_counts_pos.to_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/'
-                                  'initial_core_counts_pos.csv',  index=False)
+    initial_core_counts_pos.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_counts_pos.csv',  index=False)
 
 
 
@@ -76,11 +75,11 @@ def get_ini_core_rates(initial_core_df):
                                                  'drug_total_arrests_rate','drug_arrests_black_rate','drug_arrests_white_rate',
                                                  'poss_drug_total_tot_arrests_rate','poss_drug_total_tot_black_rate','poss_drug_total_tot_white_rate',
                                                  'disorder_arrests_tot_index_rate','disorder_arrests_black_index_rate','disorder_arrests_white_index_rate',
-                                                 'total_officers_rate','prison_occupancy_count','jail_occupancy_count', 'pci_white',
+                                                 'total_officers_rate','prison_occupancy_count_rate','jail_occupancy_count_rate', 'pci_white',
                                                  'pci_black','emp_total','emp_total_white', 'emp_total_black'
                                                  ]]
 
-    initial_core_rates.to_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_rates.csv', index=False)
+    initial_core_rates.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates.csv', index=False)
 
     # get the records with atleast 1 negative value in any one column
     initial_core_rates_neg = initial_core_rates.loc[(initial_core_rates[['murder_rate', 'rape_rate', 'robbery_rate', 'aggravated_assault_rate',
@@ -96,10 +95,9 @@ def get_ini_core_rates(initial_core_df):
                               'drug_total_arrests_rate', 'drug_arrests_black_rate', 'drug_arrests_white_rate',
                               'poss_drug_total_tot_arrests_rate', 'poss_drug_total_tot_black_rate', 'poss_drug_total_tot_white_rate',
                               'disorder_arrests_tot_index_rate', 'disorder_arrests_black_index_rate','disorder_arrests_white_index_rate',
-                              'total_officers_rate', 'prison_occupancy_count', 'jail_occupancy_count']] < 0).any(axis=1)]
+                              'total_officers_rate', 'prison_occupancy_count_rate', 'jail_occupancy_count_rate']] < 0).any(axis=1)]
 
-    initial_core_rates_neg.to_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/'
-                                   'initial_core_rates_neg.csv', index=False)
+    initial_core_rates_neg.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates_neg.csv', index=False)
 
     # get the df without the negative value records
     initial_core_rates_pos = initial_core_rates.merge(initial_core_rates_neg, how='left', indicator=True)
@@ -108,13 +106,12 @@ def get_ini_core_rates(initial_core_df):
     # drop _merge column
     initial_core_rates_pos.drop(['_merge'], inplace=True, axis=1)
 
-    initial_core_rates_pos.to_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/'
-                                   'initial_core_rates_pos.csv', index=False)
+    initial_core_rates_pos.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates_pos.csv', index=False)
 
 
-initial_core_df = pd.read_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core.csv')
+initial_core_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core.csv')
 
-get_ini_core_counts(initial_core_df)
+# get_ini_core_counts(initial_core_df)
 get_ini_core_rates(initial_core_df)
 
 
