@@ -43,37 +43,42 @@ RATES:
 
 def find_outliers_z_iqr_based(df, var_type, var=False):
     # z-score
-    var_out_z = df[((df[f'{var}'] - df[f'{var}'].mean()) / df[f'{var}'].std()).abs() > 3]
+    var_out_z = df[((df[f'{var}'] - df[f'{var}'].mean()) / df[f'{var}'].std()).abs() > 2]
 
-    var_out_z.to_csv(f'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/analysis/outliers/{var_type}/{var}_3z_out.csv',
+    var_out_z.to_csv(f'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/outliers/2z/{var_type}/{var}_2z_out.csv',
                                             index=False)
     # iqr
-    Q1 = df[f'{var}'].quantile(0.25)
-    Q3 = df[f'{var}'].quantile(0.75)
-    IQR = Q3 - Q1
+    # Q1 = df[f'{var}'].quantile(0.25)
+    # Q3 = df[f'{var}'].quantile(0.75)
+    # IQR = Q3 - Q1
+    #
+    # var_out_iqr = df[(df[f'{var}'] > 1.5 * IQR) | (df[f'{var}'] < -1.5 * IQR)]
+    #
+    # var_out_iqr.to_csv(
+    #     f'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/analysis/outliers/{var_type}/{var}_iqr_out.csv',
+    #     index=False)
 
-    var_out_iqr = df[(df[f'{var}'] > 1.5 * IQR) | (df[f'{var}'] < -1.5 * IQR)]
-
-    var_out_iqr.to_csv(
-        f'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/analysis/outliers/{var_type}/{var}_iqr_out.csv',
-        index=False)
 
 
 # find outliers corresponding to each of the num cols
 def get_outliers_all_vars():
     #### remove outliers from counts file
-    # ini_core_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/analysis/initial_core_counts_pos.csv')
-    # num_cols = list(ini_core_df)[3:]
+    ini_core_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_counts_pop_1000_neg_rplcd.csv')
+    num_cols = list(ini_core_df)[ini_core_df.columns.get_loc('murder'):]
 
     #### remove outliers from rates file
-    ini_core_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/analysis/initial_core_rates_pos.csv')
-
-    # taking columns only from murder_rate
-    num_cols = list(ini_core_df)[11:]
+    # ini_core_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates_pop_1000_neg_rplcd_incrc_cnts_rates.csv')
+    #
+    # #print(list(ini_core_df))
+    # # taking columns only from murder_rate
+    # num_cols = list(ini_core_df)[ini_core_df.columns.get_loc('murder_rate'):]
 
     for col in num_cols:
-        # find_outliers_z_iqr_based(df=ini_core_df, var=col, var_type='counts')
-        find_outliers_z_iqr_based(df=ini_core_df, var=col, var_type='rates')
+        find_outliers_z_iqr_based(df=ini_core_df, var=col, var_type='counts')
+        #find_outliers_z_iqr_based(df=ini_core_df, var=col, var_type='rates')
+
+
+get_outliers_all_vars()
 
 
 # find outliers in each of the num col and replace with nan
@@ -89,12 +94,13 @@ def replace_outliers_with_nans(fl_path):
 
     # merging num df with id df on index
     df_num_out_repl_merged = df.loc[:, :'Govt_level'].merge(df_num_out_repl, left_index=True, right_index=True)
+    print(df_num_out_repl_merged.shape[0])
 
-    df_num_out_repl_merged.to_csv(f'/Users/salma/Research/us-crime-analytics/data/pre_analysis/outliers/{file_name}_out_repl.csv',
+    df_num_out_repl_merged.to_csv(f'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/outliers/{file_name}_out_repl.csv',
                                   index=False)
 
 # replace outliers in count file
-replace_outliers_with_nans('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_counts_pop_1000_neg_rplcd.csv')
+#replace_outliers_with_nans('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_counts_pop_1000_neg_rplcd.csv')
 
 # replace outliers in rates file
-replace_outliers_with_nans('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_rates_pop_1000_neg_rplcd.csv')
+# replace_outliers_with_nans('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates_pop_1000_neg_rplcd_incrc_cnts_rates.csv')
