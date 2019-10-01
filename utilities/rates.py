@@ -70,9 +70,8 @@ create_rates(var_list=arrests_white_vars, pop_var='White_count_crime_pop')
 """
 Create rates for the below incarceration variables
 """
-
-#incarc_tot_vars = ['total_jail_pop', 'total_prison_pop']
-# create_rates(incarc_tot_vars, 'county_pop_final')
+incarc_vars = ['prison_occupancy_count', 'jail_occupancy_count']
+create_rates(incarc_vars, 'total_count_county')
 
 #incarc_black_vars = ['black_jail_pop', 'black_prison_pop']
 # create_rates(incarc_black_vars, 'black_count_county')
