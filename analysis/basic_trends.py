@@ -22,9 +22,9 @@ def create_weighted_avgs(df, avg_name, weight_name):
 
 
 # Create graphs for trends
-def graph_trends(trend_vars, title, xlbl, ylbl):
+def graph_trends(df, trend_vars, title, xlbl, ylbl):
     for trend_var, pop_var in trend_vars.items():
-        plt_var = final_df.groupby("YEAR").apply(create_weighted_avgs, f'{trend_var}', f'{pop_var}')
+        plt_var = df.groupby("YEAR").apply(create_weighted_avgs, f'{trend_var}', f'{pop_var}')
         plt.plot(plt_var, label=f'{trend_var}')
         plt.legend()
         plt.title(f'{title}')
@@ -33,15 +33,81 @@ def graph_trends(trend_vars, title, xlbl, ylbl):
     plt.show()
 
 
-# final_df = pd.read_csv('/Users/salma/Studies/Research/Criminal_Justice/research_projects/US_Crime_Analytics/data/analysis/final_main_rates.csv')
-final_df = pd.read_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_counts_pop_1000_neg_rplcd.csv')
+def rates_trends():
+    rates_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates_pop_1000_neg_rplcd_incrc_cnts_rates.csv')
+    """
+    Violent crimes, property crimes
+    """
+    # graph_trends(rates_df, {'violent_crime_rate':'population', 'property_crime_rate':'population'},
+    #              title='Major Crime Trends',
+    #               xlbl='Year', ylbl='Crime Rate')
 
-"""
-Violent crimes, property crimes, incarcertion rates, jail rates, officers rates
-"""
-graph_trends({'violent_crime':'population', 'property_crime':'population'}, title='Major Crime Trends', xlbl='Year', ylbl='Crime Rate')
+    """
+    prison occupancy counts, jail occupancy counts
+    """
+    graph_trends(rates_df, {'prison_occupancy_count_rate': 'total_count_county', 'jail_occupancy_count_rate': 'total_count_county'},
+                 title='Incarceration Trends',
+                 xlbl='Year', ylbl='Incarceration Rate')
 
 
+def rates_without_ol_trends():
+    rates_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/outliers/initial_core_rates_pop_1000_neg_rplcd_incrc_cnts_rates_out_repl.csv')
+    """
+    Violent crimes, property crimes
+    """
+    graph_trends(rates_df, {'violent_crime_rate':'population', 'property_crime_rate':'population'},
+                 title='Major Crime Trends',
+                  xlbl='Year', ylbl='Crime Rate')
+
+    """
+    prison occupancy counts, jail occupancy counts
+    """
+    graph_trends(rates_df, {'prison_occupancy_count_rate': 'total_count_county', 'jail_occupancy_count_rate': 'total_count_county'},
+                 title='Incarceration Trends',
+                 xlbl='Year', ylbl='Incarceration Rate')
+
+
+def rates_without_ol_dm_trends():
+    dm_df = pd.read_csv(
+        'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates_pop_1000_neg_rplcd_incrc_cnts_rates_out_repl_dm.csv')
+    """
+    Violent crimes, property crimes
+    """
+    graph_trends(dm_df, {'dm_violent_crime_rate': 'dm_population', 'dm_property_crime_rate': 'dm_population'},
+                 title='Major Crime Trends',
+                 xlbl='Year', ylbl='Crime Rate(dm)')
+
+    """
+    prison occupancy counts, jail occupancy counts
+    """
+    graph_trends(dm_df, {'dm_prison_occupancy_count_rate': 'dm_total_count_county',
+                            'dm_jail_occupancy_count_rate': 'dm_total_count_county'},
+                 title='Incarceration Trends',
+                 xlbl='Year', ylbl='Incarceration Rate')
+
+
+def rates_without_ol_pc_trends():
+    pc_df = pd.read_csv(
+        'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates_pop_1000_neg_rplcd_incrc_cnts_rates_out_repl_pc.csv')
+    """
+    Violent crimes, property crimes
+    """
+    graph_trends(pc_df, {'pc_violent_crime_rate': 'pc_population', 'pc_property_crime_rate': 'pc_population'},
+                 title='Major Crime Trends',
+                 xlbl='Year', ylbl='Crime Rate(pc)')
+
+    """
+    prison occupancy counts, jail occupancy counts
+    """
+    graph_trends(pc_df, {'pc_prison_occupancy_count_rate': 'pc_total_count_county',
+                            'pc_jail_occupancy_count_rate': 'pc_total_count_county'},
+                 title='Incarceration Trends',
+                 xlbl='Year', ylbl='Incarceration Rate(pc)')
+
+# rates_trends()
+rates_without_ol_trends()
+# rates_without_ol_dm_trends()
+# rates_without_ol_pc_trends()
 
 """
     1. Drug Arrests Trend By Race (Sale + Possession)
@@ -71,3 +137,5 @@ graph_trends({'violent_crime':'population', 'property_crime':'population'}, titl
     5. Disorder Arrests Trend By Race
 """
 # graph_trends({'disorder_arrests_white_index_rate':'White_count', 'disorder_arrests_black_index_rate':'Black_count'}, title='Disorder Arrests Trend By Race', xlbl='Year', ylbl='Disorder Arrests Rate')
+
+
