@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 # getting only the main columns for initial trend lines
 def get_top_level_vars(fnl_main):
 
@@ -41,6 +42,7 @@ def get_top_level_vars(fnl_main):
                                        'drug_total_arrests_rate', 'drug_arrests_black_rate', 'drug_arrests_white_rate',
                                        'poss_drug_total_tot_arrests_rate', 'poss_drug_total_tot_black_rate','poss_drug_total_tot_white_rate',
                                        'disorder_arrests_tot_index_rate', 'disorder_arrests_black_index_rate','disorder_arrests_white_index_rate',
+                                       'prison_occupancy_count_rate', 'jail_occupancy_count_rate',
 
                                        'pci_total_pop','pci_white', 'pci_black', 'pci_hisp', 'emp_total',
                                        'emp_total_male','emp_total_female','emp_total_male_white',
@@ -52,32 +54,7 @@ def get_top_level_vars(fnl_main):
 
 
 
-    initial_core_df.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre_analysis/initial_core.csv', index=False)
-
-    #return initial_core_df
+    initial_core_df.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core.csv', index=False)
 
 
-# Create weighted averages
-def create_weighted_avgs(df, avg_name, weight_name):
-    d = df[avg_name]
-    w = df[weight_name]
-    try:
-        return (d * w).sum() / w.sum()
-    except ZeroDivisionError:
-        return d.mean()
-
-
-# Create graphs for trends
-# def graph_trends(trend_vars, title, xlbl, ylbl):
-#     for trend_var, pop_var in trend_vars.items():
-#         print(trend_var, ":", pop_var)
-#         plt_var = final_df.groupby("YEAR").apply(create_weighted_avgs, f'{trend_var}', f'{pop_var}')
-#         plt.plot(plt_var, label=f'{trend_var}')
-#         plt.legend()
-#         plt.title(f'{title}')
-#         plt.xlabel(f'{xlbl}')
-#         plt.ylabel(f'{ylbl}')
-#     plt.show()
-
-
-get_top_level_vars(pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre_analysis/final_main_ncrp_incarc_rep_code_enhanced.csv'))
+get_top_level_vars(pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/final_main_ncrp_incarc_rep_code_enhanced.csv'))
