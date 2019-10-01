@@ -14,7 +14,7 @@ create icspr yrs reported flag variables
 '''
 def create_icspr_flags(fnl_main_df):
     # read the incarc_files_metadata file
-    icspr_meta_df = pd.read_excel('/Users/salma/Research/us-crime-analytics/data/pre_R_37021/incarc_files_metadata.xlsx',
+    icspr_meta_df = pd.read_excel('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/ICPSR_37021/incarc_files_metadata.xlsx',
                                   sheet_name='prison_admissions_st_yrs')
 
     icspr_meta_df = icspr_meta_df.loc[:,['STATE', 'ncrp_incarc_yr_count']]
@@ -23,7 +23,7 @@ def create_icspr_flags(fnl_main_df):
     final_df = pd.merge(fnl_main_df, icspr_meta_df, left_on='STATEFP', right_on='STATE', how='left')
     final_df['ncrp_incarc_rep_code'] = final_df.ncrp_incarc_yr_count.apply(lambda x: 0 if x < 20 else(2 if x == 26 else 1))
 
-    final_df.to_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/final_main_ncrp_incarc_rep_code.csv', index=False)
+    final_df.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/final_main_ncrp_incarc_rep_code.csv', index=False)
 
 
 def update_final_main_vars(main_df):
@@ -56,11 +56,11 @@ def update_final_main_vars(main_df):
 
     main_df.replace(np.inf, 0, inplace=True)
 
-    main_df.to_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/final_main_ncrp_incarc_rep_code_enhanced.csv',
+    main_df.to_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/final_main_ncrp_incarc_rep_code_enhanced.csv',
                          index=False)
 
 
-create_icspr_flags(pd.read_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/final_main.csv'))
+#create_icspr_flags(pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/final_main.csv'))
 
-update_final_main_vars(pd.read_csv('/Users/salma/Research/us-crime-analytics/data/pre_analysis/final_main_ncrp_incarc_rep_code.csv'))
+update_final_main_vars(pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/final_main_ncrp_incarc_rep_code.csv'))
 
