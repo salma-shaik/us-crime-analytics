@@ -28,7 +28,7 @@ def calc_perc_change(fl_path):
 
     df_pc = pd.concat([df_id, df_grpd_pct], axis=1)
 
-    df_pc.to_csv(f'/Users/salma/Research/us-crime-analytics/data/pre_analysis/{file_name}_pc.csv', index=False)
+    df_pc.to_csv(f'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/{file_name}_pc.csv', index=False)
 
 
     # row.POP100 + (5 * (row.POP100 - cen_90_00_10.iloc[row.Index - 1].POP100) / 10
@@ -41,8 +41,8 @@ def calc_perc_change(fl_path):
 #     return df._get_numeric_data().apply(axis=0, x.div(x.iloc[0]).subtract(1).mul(100))
 
 # pc for counts
-calc_perc_change('/Users/salma/Research/us-crime-analytics/data/pre_analysis/outliers/initial_core_counts_pop_1000_neg_rplcd_out_repl.csv')
+#calc_perc_change('/Users/salma/Research/us-crime-analytics/data/pre_analysis/outliers/initial_core_counts_pop_1000_neg_rplcd_out_repl.csv')
 
 
 # pc for rates
-calc_perc_change('/Users/salma/Research/us-crime-analytics/data/pre_analysis/outliers/initial_core_rates_pop_1000_neg_rplcd_out_repl.csv')
+calc_perc_change('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/outliers/initial_core_rates_pop_1000_neg_rplcd_incrc_cnts_rates_out_repl.csv')
