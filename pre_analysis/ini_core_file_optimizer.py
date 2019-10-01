@@ -13,7 +13,7 @@ def drop_pop_1000(fl_path):
 
     df = df.query('POP100 >= 1000')
 
-    df.to_csv(f'/Users/salma/Research/us-crime-analytics/data/pre_analysis/{file_name}_pop_1000.csv', index=False)
+    df.to_csv(f'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/{file_name}_pop_1000.csv', index=False)
     return df
 
 
@@ -25,28 +25,28 @@ def replace_neg_with_blanks(fl_path):
 
     df_non_neg = df.where(df > 0, np.nan)
 
-    df_non_neg.to_csv(f'/Users/salma/Research/us-crime-analytics/data/pre_analysis/{file_name}_neg_rplcd.csv', index=False)
+    df_non_neg.to_csv(f'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/{file_name}_neg_rplcd.csv', index=False)
 
 
 ###### for initial_core file ######
 # drop places with less than 1000 population from initial core file
-drop_pop_1000('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core.csv')
+#drop_pop_1000('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core.csv')
 
 # replace negatives in initial_core_pop_1000.csv file with blanks/nans
-replace_neg_with_blanks('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_pop_1000.csv')
+#replace_neg_with_blanks('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_pop_1000.csv')
 
 
 ###### for initial_core_counts file ######
 # drop places with less than 1000 population from initial core file
-drop_pop_1000('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_counts.csv')
+#drop_pop_1000('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_counts.csv')
 
 # replace negatives in initial_core_pop_1000.csv file with blanks/nans
-replace_neg_with_blanks('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_counts_pop_1000.csv')
+#replace_neg_with_blanks('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_counts_pop_1000.csv')
 
 
 ###### for initial_core_rates file ######
 # drop places with less than 1000 population from initial core file
-drop_pop_1000('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_rates.csv')
+#drop_pop_1000('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates.csv')
 
 # replace negatives in initial_core_pop_1000.csv file with blanks/nans
-replace_neg_with_blanks('/Users/salma/Research/us-crime-analytics/data/pre_analysis/initial_core_rates_pop_1000.csv')
+replace_neg_with_blanks('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/initial_core_rates_pop_1000.csv')
