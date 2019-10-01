@@ -20,11 +20,11 @@ def demean_vars(fl_path):
 
     df_demeaned = pd.concat([df_id, df_grpd], axis=1)
 
-    df_demeaned.to_csv(f'/Users/salma/Research/us-crime-analytics/data/pre_analysis/{file_name}_dm.csv', index=False)
+    df_demeaned.to_csv(f'C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/{file_name}_dm.csv', index=False)
 
 
 # demean num vars for counts file
 # demean_vars('/Users/salma/Research/us-crime-analytics/data/pre_analysis/outliers/initial_core_counts_pop_1000_neg_rplcd_out_repl.csv')
 
 # demean num vars for rates file
-demean_vars('/Users/salma/Research/us-crime-analytics/data/pre_analysis/outliers/initial_core_rates_pop_1000_neg_rplcd_out_repl.csv')
+demean_vars('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/pre-analysis/outliers/initial_core_rates_pop_1000_neg_rplcd_incrc_cnts_rates_out_repl.csv')
