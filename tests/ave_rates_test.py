@@ -28,17 +28,20 @@ import pandas as pd
 # print()
 
 
-final_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/crime/Crime_National_UCR_offenses_1960_2015.csv', encoding = "ISO-8859-1")
+final_df = pd.read_csv('C:/Users/sshaik2/projects/criminal_justice/us-crime-analytics/data/crime/Crime_National_UCR_offenses_1960_2015.csv',
+                       encoding = "ISO-8859-1")
 
 
 
 final_df_robbery = final_df[(final_df.months_reported == "Dec last reported") |
                                             (final_df.months_reported == "December is the last month reported")]
 
-final_df_robbery = final_df_robbery.loc[:, ['ORI', 'year', 'population', 'robbery', 'aggravated_assault']]
+final_df_robbery = final_df_robbery.loc[:, ['ori_code', 'year', 'population', 'robbery', 'aggravated_assault']]
 
 final_df_robbery_dec_rep = final_df_robbery.query('year >= 1990')
+
 # print(final_df_robbery_dec_rep.groupby('year').aggregate({'robbery': 'sum', 'aggravated_assault': 'sum'}).reset_index())
 
+# to get the number of records/ORIs reported in each year
 print(final_df_robbery_dec_rep.groupby('year').size())
 
